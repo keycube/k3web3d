@@ -1,0 +1,180 @@
+{
+  "globalColor": 16711680,
+  "globalClickColor": 16777215,
+  "models": {
+    "keycap": "model_stl/keycap.stl",
+    "switch": "model_stl/switch.stl",
+    "edge": "model_stl/edge.stl",
+    "corner": "model_stl/corner.stl",
+    "plate": "model_stl/plate.stl",
+    "platebot": "model_stl/plate.stl"
+  },
+
+  "glbModels": {
+    "keycap": "model_glb/keycap.glb",
+    "switch": "model_glb/switch.glb",
+    "edge": "model_glb/edge.glb",
+    "corner": "model_glb/corner.glb",
+    "plate": "model_glb/plate.glb",
+    "platebot": "model_glb/plate.glb"
+  },
+
+  "materials": {
+    "key": {
+      "color": 15987699,
+      "transparent": true,
+      "opacity": 0.9,
+      "transmission": 0.7,
+      "roughness": 0.5,
+      "metalness": 0.1,
+      "emissive": 255,
+      "emissiveIntensity": 0.2
+    },
+    "backlight": {
+      "color": 255,
+      "emissive": 255,
+      "emissiveIntensity": 0.8,
+      "transparent": false,
+      "opacity": 1
+    },
+    "glow": {
+      "glowColor": 255,
+      "falloff": 0.2,
+      "glowInternalRadius": 10.0,
+      "glowSharpness": 0.5,
+      "opacity": 0.3,
+      "depthTest": true,
+      "side": "THREE.FrontSide"
+    },
+    "aluminum": {
+      "color": 16777215,
+      "metalness": 1,
+      "roughness": 0.9,
+      "displacementScale": 0.0005,
+      "clearcoat": 0.2,
+      "clearcoatRoughness": 0.5
+    }
+  },
+
+  "explosion": {
+    "distance": 30,
+    "speed": 0.05
+  },
+
+  "camera": {
+    "perspective": {
+      "fov": 75,
+      "near": 0.1,
+      "far": 1000,
+      "position": [ 5, 5, 10 ]
+    },
+    "orthographic": {
+      "size": 10,
+      "near": 0.1,
+      "far": 1000,
+      "position": [ 5, 5, 10 ]
+    }
+  },
+
+  "asciiEffect": {
+    "invert": true,
+    "characters": " .:-=+*#%@",
+    "color": "white",
+    "backgroundColor": "black"
+  },
+
+  "lighting": {
+    "ambient": {
+      "color": 16777215,
+      "intensity": 0.3
+    },
+    "directional": {
+      "color": 16777215,
+      "intensity": 3
+    }
+  },
+
+  "keyMapping": {
+    "1": [ "1", "!" ],
+    "2": [ "4", "$" ],
+    "3": [ "7", "&" ],
+    "4": [ "shift" ],
+    "5": [ "2", "@" ],
+    "6": [ "5", "%" ],
+    "7": [ "8", "*" ],
+    "8": [ "ctrl", "control" ],
+    "9": [ "3", "#" ],
+    "10": [ "6", "^" ],
+    "11": [ "9", "(" ],
+    "12": [ "OS", "meta" ],
+    "13": [ "=", "+" ],
+    "14": [ "-", "_" ],
+    "15": [ "0", ")" ],
+    "16": [ "alt" ],
+    "17": [ "p", "P" ],
+    "18": [ "o", "O" ],
+    "19": [ "i", "I" ],
+    "20": [ "u", "U" ],
+    "21": [ "" ],
+    "22": [ "l", "L" ],
+    "23": [ "k", "K" ],
+    "24": [ "j", "J" ],
+    "25": [ "" ],
+    "26": [ "m", "M" ],
+    "27": [ "n", "N" ],
+    "28": [ "b", "B" ],
+    "29": [ "" ],
+    "30": [ "" ],
+    "31": [ "" ],
+    "32": [ "" ],
+    "33": [ "CpLk", "capslock" ],
+    "34": [ "t", "T" ],
+    "35": [ "g", "G" ],
+    "36": [ "Sp", " " ],
+    "37": [ "y", "Y" ],
+    "38": [ "Up", "arrowup" ],
+    "39": [ "Left", "arrowleft" ],
+    "40": [ "Sp", " " ],
+    "41": [ "h", "H" ],
+    "42": [ "Rght", "arrowright" ],
+    "43": [ "Dwn", "arrowdown" ],
+    "44": [ "Sp", " " ],
+    "45": [ "BkS", "backspace" ],
+    "46": [ "BkS", "backspace" ],
+    "47": [ "Entr", "enter" ],
+    "48": [ "Entr", "enter" ],
+    "49": [ "q", "Q" ],
+    "50": [ "a", "A" ],
+    "51": [ "z", "Z" ],
+    "52": [ "" ],
+    "53": [ "w", "W" ],
+    "54": [ "s", "S" ],
+    "55": [ "x", "X" ],
+    "56": [ "" ],
+    "57": [ "e", "E" ],
+    "58": [ "d", "D" ],
+    "59": [ "c", "C" ],
+    "60": [ "" ],
+    "61": [ "r", "R" ],
+    "62": [ "f", "F" ],
+    "63": [ "v", "V" ],
+    "64": [ "" ],
+    "65": [ "" ],
+    "66": [ "\\", "|" ],
+    "67": [ "]", "}" ],
+    "68": [ "{", "[" ],
+    "69": [ "`", "~" ],
+    "70": [ "Tab" ],
+    "71": [ "'", "\"" ],
+    "72": [ ":", ";" ],
+    "73": [ "" ],
+    "74": [ "/", "?" ],
+    "75": [ ".", ">" ],
+    "76": [ ",", "<" ],
+    "77": [ "shift" ],
+    "78": [ "ctrl", "control" ],
+    "79": [ "OS", "meta" ],
+    "80": [ "alt" ]
+  },
+  "materialsExtended": {}
+}
