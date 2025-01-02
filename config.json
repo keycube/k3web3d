@@ -1,6 +1,6 @@
 {
-  "globalColor": 16711680,
-  "globalClickColor": 16777215,
+  "globalColor": "#0000FF",
+  "globalClickColor": "#FFFFFF",
   "models": {
     "keycap": "model_stl/keycap.stl",
     "switch": "model_stl/switch.stl",
@@ -21,7 +21,7 @@
 
   "materials": {
     "key": {
-      "color": 15987699,
+      "color": "#F3A4B3",
       "transparent": true,
       "opacity": 0.9,
       "transmission": 0.7,
@@ -31,14 +31,14 @@
       "emissiveIntensity": 0.2
     },
     "backlight": {
-      "color": 255,
-      "emissive": 255,
+      "color": "#00FFFF",
+      "emissive": "#00FFFF",
       "emissiveIntensity": 0.8,
       "transparent": false,
       "opacity": 1
     },
     "glow": {
-      "glowColor": 255,
+      "glowColor": "#00FFFF",
       "falloff": 0.2,
       "glowInternalRadius": 10.0,
       "glowSharpness": 0.5,
@@ -47,10 +47,11 @@
       "side": "THREE.FrontSide"
     },
     "aluminum": {
-      "color": 16777215,
-      "metalness": 1,
-      "roughness": 0.9,
-      "displacementScale": 0.0005,
+      "color": "#FFFFFF",
+      "emissive": "#FFFFFF",
+      "emissiveIntensity": 0.5,
+      "metalness": 0.9,
+      "roughness": 0.7,
       "clearcoat": 0.2,
       "clearcoatRoughness": 0.5
     }

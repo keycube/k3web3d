@@ -16,6 +16,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Caméra perspective
+// Using modular settings from config for better flexibility
 const perspectiveCamera = new THREE.PerspectiveCamera(config.camera.perspective.fov, aspectRatio, config.camera.perspective.near, config.camera.perspective.far);
 perspectiveCamera.position.set(config.camera.perspective.position);
 perspectiveCamera.lookAt(0, 0, 0);
@@ -36,11 +37,13 @@ orthoCamera.lookAt(0, 0, 0);
 
 let currentCamera = perspectiveCamera;
 
-const idleTimeout = 5;
 let lastInteractionTime = Date.now();
-let isIdle = false;
+
 let initialDistance = null;
 
+let isIdle = false;
+
+let idleTimeout = 5;
 function animateIdleCamera() {
     if (isIdle) {
         if (initialDistance === null) {
@@ -128,7 +131,7 @@ let clickColor = config.globalClickColor;
 const loader = new STLLoader();
 const gltfLoader = new GLTFLoader();
 
-function textForKey(keyIndex,size,position,rotation,name) {
+function textForKey(keyIndex, size, position, rotation, name) {
     const fontLoader = new FontLoader();
     const font = fontLoader.parse(helvetiker_regular);
     let text;
@@ -142,15 +145,15 @@ function textForKey(keyIndex,size,position,rotation,name) {
         font: font,
         size: size, // Taille du texte
         height: 0.01, // Épaisseur du texte
-        curveSegments: 22, 
+        curveSegments: 22,
         bevelEnabled: true,
-        bevelThickness: 0.003, 
-        bevelSize: 0.002, 
-        bevelSegments: 10 
+        bevelThickness: 0.003,
+        bevelSize: 0.002,
+        bevelSegments: 10
     });
 
     // Créer le matériau du texte
-    const textMaterial = new THREE.MeshStandardMaterial({ color: 0x000000}); // Couleur du texte
+    const textMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 }); // Couleur du texte
     const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
     // Centrer le texte
@@ -206,7 +209,7 @@ function createKeysForPlates() {
                                 text.position.z += spacing / 3 - spacing / 24;
                                 text.rotation.set(key.rotation.x, key.rotation.y, key.rotation.z);
                                 text.name = `${plateName}_text_${keyIndex}`;
-                                textForKey(keyIndex, spacing/5, text.position, text.rotation, text.name);
+                                textForKey(keyIndex, spacing / 5, text.position, text.rotation, text.name);
                                 const glowGeometry = new THREE.SphereGeometry(spacing / 1.4, 32, 32);
                                 const glow = new THREE.Mesh(glowGeometry, glowMaterial);
                                 glow.position.copy(key.position);
@@ -433,7 +436,7 @@ const woodCaseMaterial = new THREE.MeshStandardMaterial({
 
 const hexdiffuseMap = textureLoader.load('metal/hexdiff.jpg', (tex) => {
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set(10,10);
+    tex.repeat.set(10, 10);
     console.log(tex);
 });
 
@@ -474,8 +477,9 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 
 //Loader STL (pas de texture possible):
 
+//const aluminium = new THREE.MeshStandardMaterial(config.materials.aluminum);
 //loader.load(config.models.edge, function (geometry) {
-//    const mesh = new THREE.Mesh(geometry.clone(), caseMaterial);
+//    const mesh = new THREE.Mesh(geometry.clone(), aluminium);
 //    //resizeToFitX(mesh, edgeHeight);
 
 //    const box = new THREE.Box3().setFromObject(mesh);
@@ -503,7 +507,7 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 //    ];
 
 //    edgePositions.forEach(data => {
-//        const edgeMesh = new THREE.Mesh(geometry.clone(), caseMaterial);
+//        const edgeMesh = new THREE.Mesh(geometry.clone(), woodCaseMaterial);
 //        edgeMesh.name = data.name;
 //        resizeToFitX(edgeMesh, edgeHeight);
 //        edgeMesh.position.set(data.position[0], data.position[1], data.position[2]);
@@ -532,7 +536,7 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 //        ];
 
 //        positions.forEach(data => {
-//            const mesh = new THREE.Mesh(geometry.clone(), caseMaterial);
+//            const mesh = new THREE.Mesh(geometry.clone(), aluminium);
 //            mesh.name = data.name;
 //            resizeToFitX(mesh, cornerSize);
 //            mesh.position.set(data.position[0], data.position[1], data.position[2]);
@@ -579,7 +583,7 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 //        ];
 
 //        platePositions.forEach(data => {
-//            const plateMesh = new THREE.Mesh(geometry.clone(), woodCaseMaterial);
+//            const plateMesh = new THREE.Mesh(geometry.clone(), aluminium);
 //            plateMesh.name = data.name;
 //            resizeToFitX(plateMesh, edgeLength + edgeHeight / 4);
 //            plateMesh.position.set(data.position[0], data.position[1], data.position[2]);
@@ -598,7 +602,7 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 //        ];
 
 //        platePositions.forEach(data => {
-//            const plateMesh = new THREE.Mesh(geometry.clone(), woodCaseMaterial);
+//            const plateMesh = new THREE.Mesh(geometry.clone(), aluminium);
 //            plateMesh.name = data.name;
 //            resizeToFitX(plateMesh, edgeLength + edgeHeight / 4);
 //            plateMesh.position.set(data.position[0], data.position[1], data.position[2]);
@@ -610,6 +614,7 @@ const hexCaseMaterial = new THREE.MeshStandardMaterial({
 
 
 //Loader GLTF (texture possible):
+
 gltfLoader.load(config.glbModels.edge, function (gltf) {
     const geometry = gltf.scene.children[0].geometry;
     const mesh = new THREE.Mesh(geometry.clone(), woodCaseMaterial);
@@ -635,8 +640,8 @@ gltfLoader.load(config.glbModels.edge, function (gltf) {
 
         // Axe Z
         { name: "edge_Z1", position: [edgeLength / 2, edgeLength / 2, 0], rotation: [0, Math.PI / 2, Math.PI / 2] },
-        { name: "edge_Z2", position: [-edgeLength / 2, edgeLength / 2, 0], rotation: [0, -Math.PI/2, Math.PI / 2] },
-        { name: "edge_Z3", position: [edgeLength / 2, -edgeLength / 2, 0], rotation: [0, Math.PI/2, -Math.PI / 2] },
+        { name: "edge_Z2", position: [-edgeLength / 2, edgeLength / 2, 0], rotation: [0, -Math.PI / 2, Math.PI / 2] },
+        { name: "edge_Z3", position: [edgeLength / 2, -edgeLength / 2, 0], rotation: [0, Math.PI / 2, -Math.PI / 2] },
         { name: "edge_Z4", position: [-edgeLength / 2, -edgeLength / 2, 0], rotation: [0, -Math.PI / 2, -Math.PI / 2] },
     ];
 
@@ -650,7 +655,7 @@ gltfLoader.load(config.glbModels.edge, function (gltf) {
     });
     currentCamera.position.set(edgeLength - edgeHeight, edgeLength - edgeHeight, edgeLength + edgeHeight);
     directionalLight.position.set(edgeLength + edgeHeight, edgeLength + edgeHeight, edgeLength + edgeHeight);
-    specularLight.position.set(-directionalLight.position.x,-directionalLight.position.y,-directionalLight.position.z)
+    specularLight.position.set(-directionalLight.position.x, -directionalLight.position.y, -directionalLight.position.z)
     gltfloadCorners(edgeLength, edgeHeight);
     gltfloadPlate(edgeLength, edgeHeight);
     gltfloadPlateBot(edgeLength, edgeHeight);
@@ -706,14 +711,14 @@ function gltfloadPlate(edgeLength, edgeHeight) {
         const geometry = gltf.scene.children[0].geometry;
         const platePositions = [
             // Faces avant et arrière
-            { name: "plate_front", position: [-edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 8, edgeLength / 2 + edgeHeight / 2], rotation: [Math.PI/2, 0, 0] },
-            { name: "plate_back", position: [edgeLength / 2 + edgeHeight / 8, -edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 2], rotation: [-Math.PI/2, Math.PI, 0] },
+            { name: "plate_front", position: [-edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 8, edgeLength / 2 + edgeHeight / 2], rotation: [Math.PI / 2, 0, 0] },
+            { name: "plate_back", position: [edgeLength / 2 + edgeHeight / 8, -edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 2], rotation: [-Math.PI / 2, Math.PI, 0] },
 
             // Faces haut
             { name: "plate_top", position: [-edgeLength / 2 - edgeHeight / 8, edgeLength / 2 + edgeHeight / 2, edgeLength / 2 + edgeHeight / 8], rotation: [0, 0, 0] },
 
             // Faces gauche et droite
-            { name: "plate_left", position: [-edgeLength / 2 - edgeHeight / 2, -edgeLength / 2 - edgeHeight / 8, edgeLength / 2 + edgeHeight / 8], rotation: [0, 0, Math.PI / 2 ] },
+            { name: "plate_left", position: [-edgeLength / 2 - edgeHeight / 2, -edgeLength / 2 - edgeHeight / 8, edgeLength / 2 + edgeHeight / 8], rotation: [0, 0, Math.PI / 2] },
             { name: "plate_right", position: [edgeLength / 2 + edgeHeight / 2, -edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 8], rotation: [-Math.PI / 2, -Math.PI, -Math.PI / 2] },
 
         ];
@@ -735,7 +740,7 @@ function gltfloadPlateBot(edgeLength, edgeHeight) {
         const geometry = gltf.scene.children[0].geometry;
         const platePositions = [
             // Face bas
-            { name: "plate_bot", position: [-edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 2, -edgeLength / 2 - edgeHeight / 8], rotation: [0,-Math.PI/2,0] },
+            { name: "plate_bot", position: [-edgeLength / 2 - edgeHeight / 8, -edgeLength / 2 - edgeHeight / 2, -edgeLength / 2 - edgeHeight / 8], rotation: [0, -Math.PI / 2, 0] },
         ];
 
         platePositions.forEach(data => {
@@ -762,16 +767,18 @@ directionalLight.shadow.camera.far = 50;
 scene.add(directionalLight);
 
 const specularLight = new THREE.DirectionalLight(0xffeedd, 1.5);
-specularLight.position.set(-directionalLight.position.x,-directionalLight.position.y,-directionalLight.position.z);
+specularLight.position.set(-directionalLight.position.x, -directionalLight.position.y, -directionalLight.position.z);
 scene.add(specularLight);
 
-let rotateLight = false;
+
 const radius = 1000;
 let angle = 0;
+let rotateLight = false;
 
 currentCamera.position.set(edgeLength - edgeHeight, edgeLength - edgeHeight, edgeLength + edgeHeight);
 currentCamera.lookAt(0, 0, 0);
 
+// ASCII effect state controlled by config
 let asciiEnabled = false;
 let controls = new OrbitControls(currentCamera, renderer.domElement);
 controls.mouseButtons.RIGHT = null;
@@ -828,6 +835,7 @@ function asciiEffect() {
     }
 }
 
+// Tapping state controlled by config settings
 let tapping = false;
 const pressedKeys = new Map();
 const keysInMotion = new Set();
@@ -870,7 +878,7 @@ function pressKey(event) {
                 } else if (keyObject.name.startsWith("left") || keyObject.name.startsWith("right")) {
                     moveDirection = new THREE.Vector3(keyObject.name.startsWith("left") ? 1.2 : -1.2, 0, 0);
                 }
-               
+
                 //const newColor = new THREE.Color(Math.random() * 0xffffff);
                 const newColor = clickColor;
                 keyObject.material.emissive.set(newColor);
@@ -919,7 +927,7 @@ function releaseKey(event) {
                                 if (originalPosition) {
                                     textObject.position.copy(originalTextPosition);
                                 }
-                                
+
                                 subKeyObject.material.emissive.set(color);
                                 subGlow.material.uniforms.glowColor.value.set(color);
                                 subSwitchmesh.material.emissive.set(color);
@@ -1099,7 +1107,6 @@ window.addEventListener('resize', () => {
     orthoCamera.top = orthoSize;
     orthoCamera.bottom = -orthoSize;
     orthoCamera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
     effect.setSize(window.innerWidth, window.innerHeight);
 });
